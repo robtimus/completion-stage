@@ -1,0 +1,8 @@
+{
+  "name": "completion-stage",
+  "readme": "README.md",
+  "exclude": ["**/node_modules/**"],
+  "excludePrivate": true,
+  "disableSources": true,
+  "hideGenerator": true
+}
