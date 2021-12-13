@@ -85,23 +85,36 @@ export function handle<T, U>(promise: Promise<T>, fn: (value?: T, reason?: any) 
  */
 export function rejectOnTimeout<T>(promise: Promise<T>, timeout: number, reasonOnTimeout = "Promise timed out"): Promise<T> {
   return new Promise((resolve, reject) => {
-    let rejected = false;
+    let resolvedOrRejected = false;
     let timeoutId: NodeJS.Timeout | undefined;
 
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    function doReject(reason: any) {
-      if (!rejected) {
-        reject(reason);
-        rejected = true;
-
-        if (timeoutId) {
-          clearTimeout(timeoutId);
-          timeoutId = undefined;
-        }
+    function doClearTimeout() {
+      if (timeoutId) {
+        clearTimeout(timeoutId);
+        timeoutId = undefined;
       }
     }
 
-    promise.then((value) => resolve(value)).catch((reason) => doReject(reason));
+    function doResolve(result: T) {
+      if (!resolvedOrRejected) {
+        resolve(result);
+        resolvedOrRejected = true;
+      }
+
+      doClearTimeout();
+    }
+
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    function doReject(reason: any) {
+      if (!resolvedOrRejected) {
+        reject(reason);
+        resolvedOrRejected = true;
+
+        doClearTimeout();
+      }
+    }
+
+    promise.then((value) => doResolve(value)).catch((reason) => doReject(reason));
     timeoutId = setTimeout(() => doReject(reasonOnTimeout), timeout);
   });
 }
