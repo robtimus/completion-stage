@@ -1,6 +1,6 @@
 {
   "name": "completion-stage",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "description": "A port of Java's CompletionStage using promises",
   "homepage": "https://github.com/robtimus/completion-stage",
   "bugs": {
