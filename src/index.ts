@@ -83,7 +83,8 @@ export function handle<T, U>(promise: Promise<T>, fn: (value?: T, reason?: any) 
  * If the promise is rejected before the timeout expires, the returned promise is rejected with the same reason.
  * If the promise is neither resolved or rejected before the timeout expires, the returned promise is rejected with the given reason.
  */
-export function rejectOnTimeout<T>(promise: Promise<T>, timeout: number, reasonOnTimeout = "Promise timed out"): Promise<T> {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export function rejectOnTimeout<T>(promise: Promise<T>, timeout: number, reasonOnTimeout: () => any = () => "Promise timed out"): Promise<T> {
   return new Promise((resolve, reject) => {
     let resolvedOrRejected = false;
     let timeoutId: NodeJS.Timeout | undefined;
@@ -109,13 +110,13 @@ export function rejectOnTimeout<T>(promise: Promise<T>, timeout: number, reasonO
       if (!resolvedOrRejected) {
         reject(reason);
         resolvedOrRejected = true;
-
-        doClearTimeout();
       }
+
+      doClearTimeout();
     }
 
     promise.then((value) => doResolve(value)).catch((reason) => doReject(reason));
-    timeoutId = setTimeout(() => doReject(reasonOnTimeout), timeout);
+    timeoutId = setTimeout(() => doReject(reasonOnTimeout()), timeout);
   });
 }
 
@@ -167,7 +168,7 @@ export function resolveOnTimeout<T>(promise: Promise<T>, valueOnTimeout: T, time
  * <p>
  * This is like <code>Promise.resolve(supplier())</code>, except the function is called asynchronously.
  */
-export function supply<T>(supplier: () => T, timeout = 0): Promise<T> {
+export function supply<T>(supplier: () => T, delay = 0): Promise<T> {
   return new Promise((resolve, reject) => {
     setTimeout(() => {
       try {
@@ -175,7 +176,7 @@ export function supply<T>(supplier: () => T, timeout = 0): Promise<T> {
       } catch (e) {
         reject(e);
       }
-    }, timeout);
+    }, delay);
   });
 }
 
@@ -198,10 +199,10 @@ export function whenComplete<T>(promise: Promise<T>, fn: (value?: T, reason?: an
       .catch((reason) => {
         try {
           fn(undefined, reason);
+          reject(reason);
         } catch (e) {
           reject(e);
         }
-        reject(reason);
       });
   });
 }
