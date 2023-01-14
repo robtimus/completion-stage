@@ -111,6 +111,35 @@ describe("combine", () => {
         }, 50);
       });
   });
+
+  it("function throws", (done) => {
+    const promise1 = new Promise((resolve) => {
+      setTimeout(() => {
+        resolve("promise1");
+      }, 20);
+    });
+    const promise2 = new Promise((resolve) => {
+      setTimeout(() => {
+        resolve("promise2");
+      }, 10);
+    });
+    const onfulfilled = jest.fn();
+    const onrejected = jest.fn();
+
+    combine(promise1, promise2, (value1, value2) => {
+      throw "thrown: " + value1 + ", " + value2;
+    })
+      .then(onfulfilled)
+      .catch(onrejected)
+      .finally(() => {
+        setTimeout(() => {
+          expect(onfulfilled).not.toHaveBeenCalled();
+          expect(onrejected).toHaveBeenCalledTimes(1);
+          expect(onrejected).toHaveBeenCalledWith("thrown: promise1, promise2");
+          done();
+        }, 50);
+      });
+  });
 });
 
 describe("handle", () => {
