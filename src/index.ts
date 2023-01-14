@@ -77,14 +77,8 @@ export function handle<T, U>(promise: Promise<T>, fn: (value?: T, reason?: any) 
   });
 }
 
-/**
- * Rejects a promise if it times out.
- * If the promise is resolved before the timeout expires, the returned promise is resolved with the same value.
- * If the promise is rejected before the timeout expires, the returned promise is rejected with the same reason.
- * If the promise is neither resolved or rejected before the timeout expires, the returned promise is rejected with the given reason.
- */
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export function rejectOnTimeout<T>(promise: Promise<T>, timeout: number, reasonOnTimeout: () => any = () => "Promise timed out"): Promise<T> {
+function actOnTimeout<T>(promise: Promise<T>, timeout: number, onTimeout: (doResolve: (result: T) => void, doReject: (reason: any) => void) => any): Promise<T> {
   return new Promise((resolve, reject) => {
     let resolvedOrRejected = false;
     let timeoutId: NodeJS.Timeout | undefined;
@@ -116,8 +110,19 @@ export function rejectOnTimeout<T>(promise: Promise<T>, timeout: number, reasonO
     }
 
     promise.then((value) => doResolve(value)).catch((reason) => doReject(reason));
-    timeoutId = setTimeout(() => doReject(reasonOnTimeout()), timeout);
+    timeoutId = setTimeout(() => onTimeout(doResolve, doReject), timeout);
   });
+}
+
+/**
+ * Rejects a promise if it times out.
+ * If the promise is resolved before the timeout expires, the returned promise is resolved with the same value.
+ * If the promise is rejected before the timeout expires, the returned promise is rejected with the same reason.
+ * If the promise is neither resolved or rejected before the timeout expires, the returned promise is rejected with the given reason.
+ */
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export function rejectOnTimeout<T>(promise: Promise<T>, timeout: number, reasonOnTimeout: () => any = () => "Promise timed out"): Promise<T> {
+  return actOnTimeout(promise, timeout, (_, doReject) => doReject(reasonOnTimeout()));
 }
 
 /**
@@ -127,39 +132,7 @@ export function rejectOnTimeout<T>(promise: Promise<T>, timeout: number, reasonO
  * If the promise is neither resolved or rejected before the timeout expires, the returned promise is resolved with the given value.
  */
 export function resolveOnTimeout<T>(promise: Promise<T>, valueOnTimeout: T, timeout: number): Promise<T> {
-  return new Promise((resolve, reject) => {
-    let resolvedOrRejected = false;
-    let timeoutId: NodeJS.Timeout | undefined;
-
-    function doClearTimeout() {
-      if (timeoutId) {
-        clearTimeout(timeoutId);
-        timeoutId = undefined;
-      }
-    }
-
-    function doResolve(result: T) {
-      if (!resolvedOrRejected) {
-        resolve(result);
-        resolvedOrRejected = true;
-      }
-
-      doClearTimeout();
-    }
-
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    function doReject(reason: any) {
-      if (!resolvedOrRejected) {
-        reject(reason);
-        resolvedOrRejected = true;
-      }
-
-      doClearTimeout();
-    }
-
-    promise.then((value) => doResolve(value)).catch((reason) => doReject(reason));
-    timeoutId = setTimeout(() => doResolve(valueOnTimeout), timeout);
-  });
+  return actOnTimeout(promise, timeout, (doResolve) => doResolve(valueOnTimeout));
 }
 
 /**
