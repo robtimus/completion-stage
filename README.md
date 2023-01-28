@@ -1,4 +1,9 @@
 # completion-stage
+[![npm](https://img.shields.io/npm/v/completion-stage)](https://www.npmjs.com/package/completion-stage)
+[![Build Status](https://github.com/robtimus/completion-stage/actions/workflows/build.yml/badge.svg)](https://github.com/robtimus/completion-stage/actions/workflows/build.yml)
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=robtimus%3Acompletion-stage&metric=alert_status)](https://sonarcloud.io/summary/overall?id=robtimus%3Acompletion-stage)
+[![Coverage](https://sonarcloud.io/api/project_badges/measure?project=robtimus%3Acompletion-stage&metric=coverage)](https://sonarcloud.io/summary/overall?id=robtimus%3Acompletion-stage)
+[![Known Vulnerabilities](https://snyk.io/test/github/robtimus/completion-stage/badge.svg)](https://snyk.io/test/github/robtimus/completion-stage)
 
 A port of Java's [CompletionStage](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/concurrent/CompletionStage.html) using [promises](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise). [CompletableFuture](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/concurrent/CompletableFuture.html) is also partially ported.
 
