@@ -21,7 +21,7 @@ The following is an overview of how each `CompletionStage` method is implemented
 | `future.thenAccept(action)`            | `promise.then(action)`                        |
 | `future.thenAcceptBoth(other, action)` | `Promise.all([promise, other]).then(action)`  |
 | `future.thenApply(fn)`                 | `promise.then(fn)`                            |
-| `future.thenCombine(other, fn)`        | `combine(promise, other, fn)`                 |
+| `future.thenCombine(other, fn)`        | `Promise.all([promise, other]).then(fn)`      |
 | `future.thenCompose(fn)`               | `promise.then(fn)`                            |
 | `future.thenRun(action)`               | `promise.then(fn)`                            |
 | `future.toCompletableFuture()`         | N/A                                           |

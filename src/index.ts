@@ -3,57 +3,17 @@
  * If both promises resolve successfully, the returned promise resolves successfully with the combined result of the two promises.
  * If either promise fails, the returned promise will be rejected with the same rejection reason.
  * If combining the results throws an error, the returned promise will be rejected with the error as its reason.
+ * @deprecated Use `Promise.all` and apply the given function to both results.
  */
-export function combine<T, U, V>(promise1: Promise<T>, promise2: Promise<U>, fn: (value1: T, value2: U) => V): Promise<V> {
-  return new Promise((resolve, reject) => {
-    let value1: T;
-    let value2: U;
-    let finishedCount = 0;
-    let rejected = false;
-
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    function doReject(reason: any) {
-      if (!rejected) {
-        reject(reason);
-        rejected = true;
-      }
-    }
-
-    function doFinish() {
-      finishedCount++;
-      if (finishedCount === 2) {
-        // Both promises were resolved successfully, neither was rejected
-        try {
-          resolve(fn(value1, value2));
-        } catch (e) {
-          doReject(e);
-        }
-      }
-    }
-
-    promise1
-      .then((value) => {
-        value1 = value;
-        doFinish();
-      })
-      .catch((reason) => {
-        doReject(reason);
-      });
-    promise2
-      .then((value) => {
-        value2 = value;
-        doFinish();
-      })
-      .catch((reason) => {
-        doReject(reason);
-      });
-  });
+export async function combine<T, U, V>(promise1: Promise<T>, promise2: Promise<U>, fn: (value1: T, value2: U) => V): Promise<V> {
+  const result = await Promise.all([promise1, promise2]);
+  return fn(result[0], result[1]);
 }
 
 /**
  * Calls a function if a promise is either resolved or rejected.
- * This function is like calling <code>fn(value, undefined)</code> if the promise is resolved,
- * or <code>fn(undefined, reason)</code> if the promise is rejected.
+ * This function is like calling `fn(value, undefined)` if the promise is resolved,
+ * or `fn(undefined, reason)` if the promise is rejected.
  * If the function throws an error, the returned promise is rejected with the error as its reason.
  */
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -138,8 +98,8 @@ export function resolveOnTimeout<T>(promise: Promise<T>, valueOnTimeout: T, time
 /**
  * Returns a promise that will resolve to the result of calling a function.
  * If the function throws an error, the promise will be rejected with the error as its reason.
- * <p>
- * This is like <code>Promise.resolve(supplier())</code>, except the function is called asynchronously.
+ *
+ * This is like `Promise.resolve(supplier())`, except the function is called asynchronously.
  */
 export function supply<T>(supplier: () => T, delay = 0): Promise<T> {
   return new Promise((resolve, reject) => {
