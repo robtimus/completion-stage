@@ -9,12 +9,10 @@ describe("combine", () => {
       .then(onfulfilled)
       .catch(onrejected)
       .finally(() => {
-        setTimeout(() => {
-          expect(onfulfilled).toHaveBeenCalledTimes(1);
-          expect(onfulfilled).toHaveBeenCalledWith("promise1, promise2");
-          expect(onrejected).not.toHaveBeenCalled();
-          done();
-        }, 50);
+        expect(onfulfilled).toHaveBeenCalledTimes(1);
+        expect(onfulfilled).toHaveBeenCalledWith("promise1, promise2");
+        expect(onrejected).not.toHaveBeenCalled();
+        done();
       });
   });
 
@@ -27,13 +25,11 @@ describe("combine", () => {
       .then(onfulfilled)
       .catch(onrejected)
       .finally(() => {
-        setTimeout(() => {
-          expect(fn).not.toHaveBeenCalled();
-          expect(onfulfilled).not.toHaveBeenCalled();
-          expect(onrejected).toHaveBeenCalledTimes(1);
-          expect(onrejected).toHaveBeenCalledWith("promise1");
-          done();
-        }, 50);
+        expect(fn).not.toHaveBeenCalled();
+        expect(onfulfilled).not.toHaveBeenCalled();
+        expect(onrejected).toHaveBeenCalledTimes(1);
+        expect(onrejected).toHaveBeenCalledWith("promise1");
+        done();
       });
   });
 
@@ -46,13 +42,11 @@ describe("combine", () => {
       .then(onfulfilled)
       .catch(onrejected)
       .finally(() => {
-        setTimeout(() => {
-          expect(fn).not.toHaveBeenCalled();
-          expect(onfulfilled).not.toHaveBeenCalled();
-          expect(onrejected).toHaveBeenCalledTimes(1);
-          expect(onrejected).toHaveBeenCalledWith("promise2");
-          done();
-        }, 50);
+        expect(fn).not.toHaveBeenCalled();
+        expect(onfulfilled).not.toHaveBeenCalled();
+        expect(onrejected).toHaveBeenCalledTimes(1);
+        expect(onrejected).toHaveBeenCalledWith("promise2");
+        done();
       });
   });
 
@@ -75,12 +69,10 @@ describe("combine", () => {
       .then(onfulfilled)
       .catch(onrejected)
       .finally(() => {
-        setTimeout(() => {
-          expect(fn).not.toHaveBeenCalled();
-          expect(onfulfilled).not.toHaveBeenCalled();
-          expect(onrejected).toHaveBeenCalledWith("promise1");
-          done();
-        }, 50);
+        expect(fn).not.toHaveBeenCalled();
+        expect(onfulfilled).not.toHaveBeenCalled();
+        expect(onrejected).toHaveBeenCalledWith("promise1");
+        done();
       });
   });
 
@@ -103,12 +95,10 @@ describe("combine", () => {
       .then(onfulfilled)
       .catch(onrejected)
       .finally(() => {
-        setTimeout(() => {
-          expect(fn).not.toHaveBeenCalled();
-          expect(onfulfilled).not.toHaveBeenCalled();
-          expect(onrejected).toHaveBeenCalledWith("promise2");
-          done();
-        }, 50);
+        expect(fn).not.toHaveBeenCalled();
+        expect(onfulfilled).not.toHaveBeenCalled();
+        expect(onrejected).toHaveBeenCalledWith("promise2");
+        done();
       });
   });
 
@@ -132,12 +122,10 @@ describe("combine", () => {
       .then(onfulfilled)
       .catch(onrejected)
       .finally(() => {
-        setTimeout(() => {
-          expect(onfulfilled).not.toHaveBeenCalled();
-          expect(onrejected).toHaveBeenCalledTimes(1);
-          expect(onrejected).toHaveBeenCalledWith("thrown: promise1, promise2");
-          done();
-        }, 50);
+        expect(onfulfilled).not.toHaveBeenCalled();
+        expect(onrejected).toHaveBeenCalledTimes(1);
+        expect(onrejected).toHaveBeenCalledWith("thrown: promise1, promise2");
+        done();
       });
   });
 });
@@ -151,12 +139,10 @@ describe("handle", () => {
       .then(onfulfilled)
       .catch(onrejected)
       .finally(() => {
-        setTimeout(() => {
-          expect(onfulfilled).toHaveBeenCalledTimes(1);
-          expect(onfulfilled).toHaveBeenCalledWith("promise, no reason");
-          expect(onrejected).not.toHaveBeenCalled();
-          done();
-        }, 50);
+        expect(onfulfilled).toHaveBeenCalledTimes(1);
+        expect(onfulfilled).toHaveBeenCalledWith("promise, no reason");
+        expect(onrejected).not.toHaveBeenCalled();
+        done();
       });
   });
 
@@ -168,12 +154,10 @@ describe("handle", () => {
       .then(onfulfilled)
       .catch(onrejected)
       .finally(() => {
-        setTimeout(() => {
-          expect(onfulfilled).toHaveBeenCalledTimes(1);
-          expect(onfulfilled).toHaveBeenCalledWith("no value, promise");
-          expect(onrejected).not.toHaveBeenCalled();
-          done();
-        }, 50);
+        expect(onfulfilled).toHaveBeenCalledTimes(1);
+        expect(onfulfilled).toHaveBeenCalledWith("no value, promise");
+        expect(onrejected).not.toHaveBeenCalled();
+        done();
       });
   });
 
@@ -187,12 +171,10 @@ describe("handle", () => {
       .then(onfulfilled)
       .catch(onrejected)
       .finally(() => {
-        setTimeout(() => {
-          expect(onfulfilled).not.toHaveBeenCalled();
-          expect(onrejected).toHaveBeenCalledTimes(1);
-          expect(onrejected).toHaveBeenCalledWith("thrown: promise, no reason");
-          done();
-        }, 50);
+        expect(onfulfilled).not.toHaveBeenCalled();
+        expect(onrejected).toHaveBeenCalledTimes(1);
+        expect(onrejected).toHaveBeenCalledWith("thrown: promise, no reason");
+        done();
       });
   });
 
@@ -206,12 +188,10 @@ describe("handle", () => {
       .then(onfulfilled)
       .catch(onrejected)
       .finally(() => {
-        setTimeout(() => {
-          expect(onfulfilled).not.toHaveBeenCalled();
-          expect(onrejected).toHaveBeenCalledTimes(1);
-          expect(onrejected).toHaveBeenCalledWith("thrown: no value, promise");
-          done();
-        }, 50);
+        expect(onfulfilled).not.toHaveBeenCalled();
+        expect(onrejected).toHaveBeenCalledTimes(1);
+        expect(onrejected).toHaveBeenCalledWith("thrown: no value, promise");
+        done();
       });
   });
 });
@@ -226,17 +206,14 @@ describe("rejectOnTimeout", () => {
     const onfulfilled = jest.fn();
     const onrejected = jest.fn();
 
-    rejectOnTimeout(promise, 60)
-      .then(onfulfilled)
-      .catch(onrejected)
-      .finally(() => {
-        setTimeout(() => {
-          expect(onfulfilled).toHaveBeenCalledTimes(1);
-          expect(onfulfilled).toHaveBeenCalledWith("promise");
-          expect(onrejected).not.toHaveBeenCalled();
-          done();
-        }, 50);
-      });
+    rejectOnTimeout(promise, 60).then(onfulfilled).catch(onrejected);
+
+    setTimeout(() => {
+      expect(onfulfilled).toHaveBeenCalledTimes(1);
+      expect(onfulfilled).toHaveBeenCalledWith("promise");
+      expect(onrejected).not.toHaveBeenCalled();
+      done();
+    }, 50);
   });
 
   it("promise is rejected before timeout", (done) => {
@@ -248,17 +225,14 @@ describe("rejectOnTimeout", () => {
     const onfulfilled = jest.fn();
     const onrejected = jest.fn();
 
-    rejectOnTimeout(promise, 60)
-      .then(onfulfilled)
-      .catch(onrejected)
-      .finally(() => {
-        setTimeout(() => {
-          expect(onfulfilled).not.toHaveBeenCalled();
-          expect(onrejected).toHaveBeenCalledTimes(1);
-          expect(onrejected).toHaveBeenCalledWith("promise");
-          done();
-        }, 50);
-      });
+    rejectOnTimeout(promise, 60).then(onfulfilled).catch(onrejected);
+
+    setTimeout(() => {
+      expect(onfulfilled).not.toHaveBeenCalled();
+      expect(onrejected).toHaveBeenCalledTimes(1);
+      expect(onrejected).toHaveBeenCalledWith("promise");
+      done();
+    }, 50);
   });
 
   it("promise is resolved after timeout", (done) => {
@@ -270,17 +244,14 @@ describe("rejectOnTimeout", () => {
     const onfulfilled = jest.fn();
     const onrejected = jest.fn();
 
-    rejectOnTimeout(promise, 40)
-      .then(onfulfilled)
-      .catch(onrejected)
-      .finally(() => {
-        setTimeout(() => {
-          expect(onfulfilled).not.toHaveBeenCalled();
-          expect(onrejected).toHaveBeenCalledTimes(1);
-          expect(onrejected).toHaveBeenCalledWith("Promise timed out");
-          done();
-        }, 50);
-      });
+    rejectOnTimeout(promise, 40).then(onfulfilled).catch(onrejected);
+
+    setTimeout(() => {
+      expect(onfulfilled).not.toHaveBeenCalled();
+      expect(onrejected).toHaveBeenCalledTimes(1);
+      expect(onrejected).toHaveBeenCalledWith("Promise timed out");
+      done();
+    }, 40);
   });
 
   it("promise is rejected after timeout", (done) => {
@@ -292,17 +263,14 @@ describe("rejectOnTimeout", () => {
     const onfulfilled = jest.fn();
     const onrejected = jest.fn();
 
-    rejectOnTimeout(promise, 40)
-      .then(onfulfilled)
-      .catch(onrejected)
-      .finally(() => {
-        setTimeout(() => {
-          expect(onfulfilled).not.toHaveBeenCalled();
-          expect(onrejected).toHaveBeenCalledTimes(1);
-          expect(onrejected).toHaveBeenCalledWith("Promise timed out");
-          done();
-        }, 50);
-      });
+    rejectOnTimeout(promise, 40).then(onfulfilled).catch(onrejected);
+
+    setTimeout(() => {
+      expect(onfulfilled).not.toHaveBeenCalled();
+      expect(onrejected).toHaveBeenCalledTimes(1);
+      expect(onrejected).toHaveBeenCalledWith("Promise timed out");
+      done();
+    }, 40);
   });
 });
 
@@ -316,17 +284,14 @@ describe("resolveOnTimeout", () => {
     const onfulfilled = jest.fn();
     const onrejected = jest.fn();
 
-    resolveOnTimeout(promise, "timed out", 60)
-      .then(onfulfilled)
-      .catch(onrejected)
-      .finally(() => {
-        setTimeout(() => {
-          expect(onfulfilled).toHaveBeenCalledTimes(1);
-          expect(onfulfilled).toHaveBeenCalledWith("promise");
-          expect(onrejected).not.toHaveBeenCalled();
-          done();
-        }, 50);
-      });
+    resolveOnTimeout(promise, "timed out", 60).then(onfulfilled).catch(onrejected);
+
+    setTimeout(() => {
+      expect(onfulfilled).toHaveBeenCalledTimes(1);
+      expect(onfulfilled).toHaveBeenCalledWith("promise");
+      expect(onrejected).not.toHaveBeenCalled();
+      done();
+    }, 50);
   });
 
   it("promise is rejected before timeout", (done) => {
@@ -338,17 +303,14 @@ describe("resolveOnTimeout", () => {
     const onfulfilled = jest.fn();
     const onrejected = jest.fn();
 
-    resolveOnTimeout(promise, "timed out", 60)
-      .then(onfulfilled)
-      .catch(onrejected)
-      .finally(() => {
-        setTimeout(() => {
-          expect(onfulfilled).not.toHaveBeenCalled();
-          expect(onrejected).toHaveBeenCalledTimes(1);
-          expect(onrejected).toHaveBeenCalledWith("promise");
-          done();
-        }, 50);
-      });
+    resolveOnTimeout(promise, "timed out", 60).then(onfulfilled).catch(onrejected);
+
+    setTimeout(() => {
+      expect(onfulfilled).not.toHaveBeenCalled();
+      expect(onrejected).toHaveBeenCalledTimes(1);
+      expect(onrejected).toHaveBeenCalledWith("promise");
+      done();
+    }, 50);
   });
 
   it("promise is resolved after timeout", (done) => {
@@ -360,17 +322,14 @@ describe("resolveOnTimeout", () => {
     const onfulfilled = jest.fn();
     const onrejected = jest.fn();
 
-    resolveOnTimeout(promise, "timed out", 40)
-      .then(onfulfilled)
-      .catch(onrejected)
-      .finally(() => {
-        setTimeout(() => {
-          expect(onfulfilled).toHaveBeenCalledTimes(1);
-          expect(onfulfilled).toHaveBeenCalledWith("timed out");
-          expect(onrejected).not.toHaveBeenCalled();
-          done();
-        }, 50);
-      });
+    resolveOnTimeout(promise, "timed out", 40).then(onfulfilled).catch(onrejected);
+
+    setTimeout(() => {
+      expect(onfulfilled).toHaveBeenCalledTimes(1);
+      expect(onfulfilled).toHaveBeenCalledWith("timed out");
+      expect(onrejected).not.toHaveBeenCalled();
+      done();
+    }, 40);
   });
 
   it("promise is rejected after timeout", (done) => {
@@ -382,17 +341,14 @@ describe("resolveOnTimeout", () => {
     const onfulfilled = jest.fn();
     const onrejected = jest.fn();
 
-    resolveOnTimeout(promise, "timed out", 40)
-      .then(onfulfilled)
-      .catch(onrejected)
-      .finally(() => {
-        setTimeout(() => {
-          expect(onfulfilled).toHaveBeenCalledTimes(1);
-          expect(onfulfilled).toHaveBeenCalledWith("timed out");
-          expect(onrejected).not.toHaveBeenCalled();
-          done();
-        }, 50);
-      });
+    resolveOnTimeout(promise, "timed out", 40).then(onfulfilled).catch(onrejected);
+
+    setTimeout(() => {
+      expect(onfulfilled).toHaveBeenCalledTimes(1);
+      expect(onfulfilled).toHaveBeenCalledWith("timed out");
+      expect(onrejected).not.toHaveBeenCalled();
+      done();
+    }, 40);
   });
 });
 
@@ -405,12 +361,10 @@ describe("supply", () => {
       .then(onfulfilled)
       .catch(onrejected)
       .finally(() => {
-        setTimeout(() => {
-          expect(onfulfilled).toHaveBeenCalledTimes(1);
-          expect(onfulfilled).toHaveBeenCalledWith("supplied");
-          expect(onrejected).not.toHaveBeenCalled();
-          done();
-        }, 50);
+        expect(onfulfilled).toHaveBeenCalledTimes(1);
+        expect(onfulfilled).toHaveBeenCalledWith("supplied");
+        expect(onrejected).not.toHaveBeenCalled();
+        done();
       });
   });
 
@@ -424,12 +378,10 @@ describe("supply", () => {
       .then(onfulfilled)
       .catch(onrejected)
       .finally(() => {
-        setTimeout(() => {
-          expect(onfulfilled).not.toHaveBeenCalled();
-          expect(onrejected).toHaveBeenCalledTimes(1);
-          expect(onrejected).toHaveBeenCalledWith("supplied error");
-          done();
-        }, 50);
+        expect(onfulfilled).not.toHaveBeenCalled();
+        expect(onrejected).toHaveBeenCalledTimes(1);
+        expect(onrejected).toHaveBeenCalledWith("supplied error");
+        done();
       });
   });
 });
@@ -443,12 +395,10 @@ describe("whenComplete", () => {
       .then(onfulfilled)
       .catch(onrejected)
       .finally(() => {
-        setTimeout(() => {
-          expect(onfulfilled).toHaveBeenCalledTimes(1);
-          expect(onfulfilled).toHaveBeenCalledWith("promise");
-          expect(onrejected).not.toHaveBeenCalled();
-          done();
-        }, 50);
+        expect(onfulfilled).toHaveBeenCalledTimes(1);
+        expect(onfulfilled).toHaveBeenCalledWith("promise");
+        expect(onrejected).not.toHaveBeenCalled();
+        done();
       });
   });
 
@@ -460,12 +410,10 @@ describe("whenComplete", () => {
       .then(onfulfilled)
       .catch(onrejected)
       .finally(() => {
-        setTimeout(() => {
-          expect(onfulfilled).not.toHaveBeenCalled();
-          expect(onrejected).toHaveBeenCalledTimes(1);
-          expect(onrejected).toHaveBeenCalledWith("promise");
-          done();
-        }, 50);
+        expect(onfulfilled).not.toHaveBeenCalled();
+        expect(onrejected).toHaveBeenCalledTimes(1);
+        expect(onrejected).toHaveBeenCalledWith("promise");
+        done();
       });
   });
 
@@ -479,12 +427,10 @@ describe("whenComplete", () => {
       .then(onfulfilled)
       .catch(onrejected)
       .finally(() => {
-        setTimeout(() => {
-          expect(onfulfilled).not.toHaveBeenCalled();
-          expect(onrejected).toHaveBeenCalledTimes(1);
-          expect(onrejected).toHaveBeenCalledWith("thrown: promise, no reason");
-          done();
-        }, 50);
+        expect(onfulfilled).not.toHaveBeenCalled();
+        expect(onrejected).toHaveBeenCalledTimes(1);
+        expect(onrejected).toHaveBeenCalledWith("thrown: promise, no reason");
+        done();
       });
   });
 
@@ -498,12 +444,10 @@ describe("whenComplete", () => {
       .then(onfulfilled)
       .catch(onrejected)
       .finally(() => {
-        setTimeout(() => {
-          expect(onfulfilled).not.toHaveBeenCalled();
-          expect(onrejected).toHaveBeenCalledTimes(1);
-          expect(onrejected).toHaveBeenCalledWith("thrown: no value, promise");
-          done();
-        }, 50);
+        expect(onfulfilled).not.toHaveBeenCalled();
+        expect(onrejected).toHaveBeenCalledTimes(1);
+        expect(onrejected).toHaveBeenCalledWith("thrown: no value, promise");
+        done();
       });
   });
 });
