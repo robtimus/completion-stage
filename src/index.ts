@@ -27,9 +27,9 @@ export function handle<T, U>(promise: Promise<T>, fn: (value?: T, reason?: any) 
           reject(e);
         }
       })
-      .catch((reason) => {
+      .catch((error) => {
         try {
-          resolve(fn(undefined, reason));
+          resolve(fn(undefined, error));
         } catch (e) {
           reject(e);
         }
@@ -69,7 +69,7 @@ function actOnTimeout<T>(promise: Promise<T>, timeout: number, onTimeout: (doRes
       doClearTimeout();
     }
 
-    promise.then((value) => doResolve(value)).catch((reason) => doReject(reason));
+    promise.then((value) => doResolve(value)).catch((error) => doReject(error));
     timeoutId = setTimeout(() => onTimeout(doResolve, doReject), timeout);
   });
 }
@@ -129,10 +129,10 @@ export function whenComplete<T>(promise: Promise<T>, fn: (value?: T, reason?: an
           reject(e);
         }
       })
-      .catch((reason) => {
+      .catch((error) => {
         try {
-          fn(undefined, reason);
-          reject(reason);
+          fn(undefined, error);
+          reject(error);
         } catch (e) {
           reject(e);
         }
