@@ -40,6 +40,6 @@
     "node": ">=20"
   },
   "prettier": {
-    "printWidth": 999
+    "printWidth": 180
   }
 }
