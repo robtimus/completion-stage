@@ -1,3 +1,5 @@
+/// <reference types="node" />
+
 /**
  * Combines two promises into one.
  * If both promises resolve successfully, the returned promise resolves successfully with the combined result of the two promises.
